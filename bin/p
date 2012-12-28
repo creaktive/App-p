@@ -16,6 +16,9 @@ exec
     '-ML',
     '-MData::Printer',
     '-MList::AllUtils=:all',
+    (grep { /\bdpath\b/x } @ARGV)
+        ? ('-MData::DPath=dpath')
+        : (),
     (grep { /\b(?:get(?:print|store)?|head|mirror)\b/x } @ARGV)
         ? ('-MLWP::Protocol::Net::Curl=encoding,,verbose,1', '-MLWP::Simple')
         : (),
@@ -50,6 +53,7 @@ exec
         xl  to XML::Hash::LX::xml2hash()
         yd  to YAML::Dump()
         yl  to YAML::Load()
+        dpath from Data::DPath
         get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
 
