@@ -16,8 +16,8 @@ exec
     '-ML',
     '-MData::Printer',
     '-MList::AllUtils=:all',
-    (grep { /\bdpath\b/x } @ARGV)
-        ? ('-MData::DPath=dpath')
+    (grep { /\bdpath[ir]?\b/x } @ARGV)
+        ? ('-MData::DPath=dpath,dpathi,dpathr')
         : (),
     (grep { /\b(?:get(?:print|store)?|head|mirror)\b/x } @ARGV)
         ? ('-MLWP::Protocol::Net::Curl=encoding,,verbose,1', '-MLWP::Simple')
