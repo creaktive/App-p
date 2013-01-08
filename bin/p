@@ -27,14 +27,14 @@ exec
     '-E',
     q[BEGIN {
         $0 = v112;
-        sub r  { scalar File::Slurp::read_file(shift) }
-        sub w  { File::Slurp::write_file(@_)          }
-        sub yd { print YAML::XS::Dump(shift)          }
-        sub yl { YAML::XS::Load(shift)                }
-        sub xd { print XML::Hash::LX::hash2xml(shift) }
-        sub xl { XML::Hash::LX::xml2hash(shift)       }
-        sub jd { print JSON::XS->new->utf8->pretty->encode(shift) }
-        sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
+        sub r  { scalar File::Slurp::read_file(shift)                                   }
+        sub w  { File::Slurp::write_file(@_)                                            }
+        sub yd { print Encode::decode_utf8(YAML::XS::Dump(shift))                       }
+        sub yl { YAML::XS::Load(shift)                                                  }
+        sub xd { print Encode::decode_utf8(XML::Hash::LX::hash2xml(shift))              }
+        sub xl { XML::Hash::LX::xml2hash(shift)                                         }
+        sub jd { print Encode::decode_utf8(JSON::XS->new->utf8->pretty->encode(shift))  }
+        sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift)                       }
     }], @ARGV;
 
 
