@@ -27,8 +27,10 @@ exec
     '-E',
     q[BEGIN {
         $0 = v112;
+        *{'dd'} = \&Data::Printer::p;
         sub r  { scalar File::Slurp::read_file(shift)                                   }
         sub w  { File::Slurp::write_file(@_)                                            }
+        sub S  { say @_ ? @_ : $_                                                       }
         sub yd { print Encode::decode_utf8(YAML::XS::Dump(shift))                       }
         sub yl { YAML::XS::Load(shift)                                                  }
         sub xd { print Encode::decode_utf8(XML::Hash::LX::hash2xml(shift))              }
@@ -47,6 +49,9 @@ exec
         The code can make use of:
         r   to File::Slurp::read_file
         w   to File::Slurp::write_file
+        S   to say()
+        p   to Data::Printer::p()
+        dd  alias to p()
         jd  to JSON::XS::encode (utf8/pretty)
         jl  to JSON::XS::decode (utf8/allow nonref) a thing
         xd  to XML::Hash::LX::hash2xml()
